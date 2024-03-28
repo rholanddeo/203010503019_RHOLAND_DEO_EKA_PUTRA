@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NamaController extends Controller
 {
     public function index(Request $request)
     {
+
+        $request->validate([
+            'nama.*' => 'required|max:7'
+        ]);
+
+
+
+
         // $nama = ['Nama Anda'];
         // $results = [];
         // foreach ($nama as $value) {

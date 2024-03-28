@@ -30,14 +30,24 @@
     <form id="namaForm" action="/nama" method="GET">
         <div id="namaFields">
             <label for="nama">Nama:</label><br>
-            <input type="text" name="nama[]" required><br><br>
+            <input type="text" name="nama[]"><br><br>
         </div>
         <button type="button" onclick="tambahField()">Tambah Nama</button>
-        <button type="button" onclick="hapusField()">Hapus Nama</button><br><br>
+        <button type="button" onclick="hapusField()">Hapus Nama</button>
+        <br><br>
         <button type="submit">Analisis</button>
     </form>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-    @isset($results)
+    {{-- @isset($results)
         <h2>Hasil Analisis</h2>
         @foreach ($results as $result)
             <div>
@@ -50,7 +60,22 @@
             </div>
         <hr>
         @endforeach
-    @endisset
+    @endisset --}}
+
+        <h2>Hasil Analisis</h2>
+    @forelse ($results as $result )
+        <p>Nama: {{ $result['nama'] }}</p>
+        <p>Jumlah Kata: {{ $result['jumlahKata'] }}</p>
+        <p>Jumlah Huruf: {{ $result['jumlahHuruf'] }}</p>
+        <p>Kebalikan Nama: {{ $result['kebalikanNama'] }}</p>
+        <p>Jumlah Konsonan: {{ $result['jumlahKonsonan'] }}</p>
+        <p>Jumlah Vokal: {{ $result['jumlahVokal'] }}</p>
+        <hr>
+    @empty
+        <p>Tidak ada data</p>
+    @endforelse
+
+
 
     <script>
         function tambahField() {
